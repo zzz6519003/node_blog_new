@@ -131,6 +131,20 @@ module.exports = function(app){
     req.flash('success','登出成功!');
     res.redirect('/');
   });
+
+  app.get('/upload', checkLogin);
+  app.get('/upload', function (req, res) {
+    res.render('upload', {
+      title: '文件上传',
+      user: req.session.user,
+      success: req.flash('success').toString(),
+      error: req.flash('error').toString()
+    });
+  });
+
+
+  
+
 };
 
 function checkLogin(req, res, next){
