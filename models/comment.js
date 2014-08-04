@@ -16,7 +16,8 @@ Comment.prototype.save = function(callback) {
       title = this.title,
       comment = this.comment;
   //打开数据库
-  mongodb.open(function (err, db) {
+  pool.acquire(function (err, mongodb) {
+
     if (err) {
       return callback(err);
     }
@@ -41,5 +42,7 @@ Comment.prototype.save = function(callback) {
           callback(null);
       });   
     });
+    pool.release(mongodb);
+
   });
 };
